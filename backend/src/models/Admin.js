@@ -26,9 +26,13 @@ const adminSchema = new Schema({
 
 adminSchema.methods.generateAuthToken = async function () {
   const admin = this;
-  const token = jwt.sign({ _id: admin._id.toString() }, "prototype", {
-    expiresIn: "7 days",
-  });
+  const token = jwt.sign(
+    { _id: admin._id.toString() },
+    process.env.SECRET_KEY,
+    {
+      expiresIn: "7 days",
+    }
+  );
   admin.token = token;
   await admin.save();
   return token;
