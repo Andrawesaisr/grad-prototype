@@ -9,9 +9,9 @@ const Navbar = () => {
             LOGO
         </div>
         <ul className='nav-menu'>
-            <li>Signup</li>
-            <li>Login</li>
-            <li>Admin</li>
+            <li><Link to="/sigup" style={{textDecoration:'none'}}>Signup</Link></li>
+            <li><Link to="/login" style={{textDecoration:'none'}}>Login</Link></li>
+            <li><Link to="/admin" style={{textDecoration:'none'}}>Admin</Link></li>
             <li>about us</li>
         </ul>
         <div className="navbar-login">
