@@ -1,12 +1,11 @@
 import { React, useState } from "react";
-// import './Css/Admin.css'
 const Admin = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:4000/user/signin", {
+      const response = await fetch("http://localhost:4000/admin/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

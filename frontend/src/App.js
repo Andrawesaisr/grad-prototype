@@ -5,7 +5,6 @@ import Admin from "./screens/Admin";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./screens/Home";
-import Modal from "./Components/Modal/Modal";
 function App() {
   return (
     <div className="App">
@@ -17,8 +16,6 @@ function App() {
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </BrowserRouter>
-
-      {/* <Modal/> */}
     </div>
   );
 }

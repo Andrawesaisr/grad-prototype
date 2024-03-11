@@ -1,11 +1,6 @@
 import React, { useState } from "react";
-// import { makeStyles } from "@material-ui/styles";
-// import Form from "react-bootstrap/Form";
-// import Button from "react-bootstrap/Button";
 import "../screens/Css/SignUp.css";
 const Signup = () => {
-  // const classes = useStyles();
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

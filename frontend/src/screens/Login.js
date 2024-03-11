@@ -26,18 +26,6 @@ const Login = () => {
     setEmail("");
     setPassword("");
   };
-  // const validate = () => {
-  //   let result = true;
-  //   if (Email === '' || Email === null) {
-  //       result = false;
-  //       console.log('Please Enter Username');
-  //   }
-  //   if (Password === '' || Password === null) {
-  //       result = false;
-  //       console.log('Please Enter Password');
-  //   }
-  //   return result;
-  //   }
   return (
     <div className="loginsignup">
       <div className="loginsignup-container">
