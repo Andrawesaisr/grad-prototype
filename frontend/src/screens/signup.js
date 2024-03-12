@@ -16,10 +16,14 @@ const Signup = () => {
         body: JSON.stringify({ username, email, password }),
       });
 
+      const responseData = await response.json();
+      console.log("responseData", responseData);
+
       if (response.ok) {
-        console.log("Signup successful!");
+        console.log(responseData.msg);
+        localStorage.setItem("token", responseData.token);
       } else {
-        console.error("Error signing up:", response.statusText);
+        console.error("Error signing up:", responseData.msg);
       }
     } catch (error) {
       console.error("Error signing up:", error.message);

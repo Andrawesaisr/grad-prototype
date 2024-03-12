@@ -3,22 +3,27 @@ import "../Navbar/Navbar.css";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const HandleLogOut = async(e)=>{
+  const HandleLogOut = async (e) => {
     e.preventDefault();
-    try{
-      const response = await fetch("", {
-        method: "",
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:4000/user/signout", {
+        method: "POST",
         headers: {
-          "Content-Type": "",
+          "Content-Type": "application/json",
+          Authorization: token,
         },
-        body: JSON.stringify(),
       });
-
-    }catch(e){
-
+      const responseData = await response.json();
+      if (response.ok) {
+        console.log("responseData", responseData.msg);
+      } else {
+        console.error("Error signing up:", responseData.msg);
+      }
+    } catch (error) {
+      console.error("Error signing up:", error.message);
     }
-
-  }
+  };
   return (
     <div className="navbar">
       <div className="nav-logo">LOGO</div>
@@ -41,7 +46,7 @@ const Navbar = () => {
         <li>about us</li>
       </ul>
       <div className="navbar-login">
-        <button onClick={HandleLogOut} >Login</button>
+        <button onClick={HandleLogOut}>signout</button>
       </div>
     </div>
   );

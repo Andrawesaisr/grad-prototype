@@ -5,43 +5,56 @@ const router = express.Router();
 
 // sign up
 router.post("/user/signup", async (req, res) => {
-  const { email, username } = req.body;
-  const checkEmail = await User.findOne({ email });
-  if (checkEmail) {
-    return res.send("This email is already exist!!");
-  }
-  const checkUsername = await User.findOne({ username });
-  if (checkUsername) {
-    return res.send("This username is already exist!!");
-  }
+  const { email, username, password } = req.body;
+  if (!email || !username || !password)
+    return res.status(401).send({
+      msg: "Please fill all the fields",
+    });
+
   try {
+    const checkEmail = await User.findOne({ email });
+    if (checkEmail) {
+      return res.status(401).send({ msg: "This email is already exist!!" });
+    }
+    const checkUsername = await User.findOne({ username });
+    if (checkUsername) {
+      return res.status(401).send({ msg: "This username is already exist!!" });
+    }
+
     const user = new User(req.body);
     await user.save();
 
     const token = await user.generateAuthToken();
 
-    res.setHeader("Authorization", `Bearer ${token}`);
-    res.status(200).send("Sign up Successfully");
+    // res.setHeader("Authorization", `Bearer ${token}`);
+    res
+      .status(200)
+      .send({ msg: "Sign up Successfully", token: `Bearer ${token}` });
   } catch (e) {
     console.log(e);
-    res.send(e);
+    res.status(500).send(e);
   }
 });
 
 // signin
 router.post("/user/signin", async (req, res) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email });
-  if (!user) {
-    return res.send("This email is not existing !!");
-  }
-  if (user.password !== password) {
-    return res.send("The password is not correct!!");
-  }
+  console.log("email", email, "password", password);
+  if (!email || !password)
+    return res.status(401).send({ msg: "Please fill all the fields" });
   try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).send("This email is not existing !!");
+    }
+    if (user.password !== password) {
+      return res.status(401).send("The password is not correct!!");
+    }
     const token = await user.generateAuthToken();
-    res.setHeader("Authorization", `Bearer ${token}`);
-    res.status(200).send("Signed in Successfull");
+    // res.setHeader("Authorization", `Bearer ${token}`);
+    res
+      .status(200)
+      .send({ msg: "Sign up Successfully", token: `Bearer ${token}` });
   } catch (e) {
     console.log(e);
     res.send(e);
@@ -53,10 +66,10 @@ router.post("/user/signout", Auth, async (req, res) => {
   try {
     req.user.token = "";
     await req.user.save();
-    res.status(200).send("signed out successfully");
+    res.status(200).send({ msg: "signed out successfully" });
   } catch (e) {
     console.log(e);
-    res.send(e);
+    res.status(500).send({ e });
   }
 });
 
