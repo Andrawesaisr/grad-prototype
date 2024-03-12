@@ -3,6 +3,22 @@ import "../Navbar/Navbar.css";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const HandleLogOut = async(e)=>{
+    e.preventDefault();
+    try{
+      const response = await fetch("", {
+        method: "",
+        headers: {
+          "Content-Type": "",
+        },
+        body: JSON.stringify(),
+      });
+
+    }catch(e){
+
+    }
+
+  }
   return (
     <div className="navbar">
       <div className="nav-logo">LOGO</div>
@@ -25,7 +41,7 @@ const Navbar = () => {
         <li>about us</li>
       </ul>
       <div className="navbar-login">
-        <button>Login</button>
+        <button onClick={HandleLogOut} >Login</button>
       </div>
     </div>
   );
