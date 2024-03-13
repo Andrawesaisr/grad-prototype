@@ -16,7 +16,7 @@ const Navbar = () => {
       });
       const responseData = await response.json();
       if (response.ok) {
-        console.log("responseData", responseData.msg);
+        console.log(responseData.msg);
       } else {
         console.error("Error signing up:", responseData.msg);
       }

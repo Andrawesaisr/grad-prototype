@@ -20,7 +20,11 @@ router.post("/user/signup", async (req, res) => {
     if (checkUsername) {
       return res.status(401).send({ msg: "This username is already exist!!" });
     }
-
+    if (password.length < 7) {
+      return res
+        .status(401)
+        .send({ msg: "Password must be at least 7 characters long" });
+    }
     const user = new User(req.body);
     await user.save();
 
@@ -29,7 +33,7 @@ router.post("/user/signup", async (req, res) => {
     // res.setHeader("Authorization", `Bearer ${token}`);
     res
       .status(200)
-      .send({ msg: "Sign up Successfully", token: `Bearer ${token}` });
+      .send({ msg: "Signed up Successfully", token: `Bearer ${token}` });
   } catch (e) {
     console.log(e);
     res.status(500).send(e);
@@ -45,19 +49,19 @@ router.post("/user/signin", async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).send("This email is not existing !!");
+      return res.status(401).send({ msg: "This email is not existing !!" });
     }
     if (user.password !== password) {
-      return res.status(401).send("The password is not correct!!");
+      return res.status(401).send({ msg: "The password is not correct!!" });
     }
     const token = await user.generateAuthToken();
     // res.setHeader("Authorization", `Bearer ${token}`);
     res
       .status(200)
-      .send({ msg: "Sign up Successfully", token: `Bearer ${token}` });
+      .send({ msg: "Signed in Successfully", token: `Bearer ${token}` });
   } catch (e) {
     console.log(e);
-    res.send(e);
+    res.send({ msg: e });
   }
 });
 
@@ -69,7 +73,7 @@ router.post("/user/signout", Auth, async (req, res) => {
     res.status(200).send({ msg: "signed out successfully" });
   } catch (e) {
     console.log(e);
-    res.status(500).send({ e });
+    res.status(500).send({ msg: e });
   }
 });
 

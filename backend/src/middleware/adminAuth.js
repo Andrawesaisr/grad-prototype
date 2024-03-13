@@ -9,14 +9,14 @@ const adminAuth = async (req, res, next) => {
       token: token,
     });
     if (!admin) {
-      return res.send("the amdin in not authorized now!!");
+      return res.status(400).send({ msg: "the amdin in not authorized now!!" });
     }
     req.admin = admin;
     req.token = token;
     next();
   } catch (e) {
     console.log(e);
-    res.send(e);
+    res.status(500).send({ msg: e });
   }
 };
 

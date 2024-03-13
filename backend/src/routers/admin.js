@@ -6,20 +6,24 @@ const router = express.Router();
 // signin
 router.post("/admin/signin", async (req, res) => {
   const { email, password } = req.body;
-  const admin = await Admin.findOne({ email });
-  if (!admin) {
-    return res.send("This email is not existing !!");
-  }
-  if (admin.password !== password) {
-    return res.send("The password is not correct!!");
-  }
+  if (!email || !password)
+    return res.status(401).send({ msg: "Please fill all the fields" });
   try {
+    const admin = await Admin.findOne({ email });
+    if (!admin) {
+      return res.status(401).send({ msg: "This email is not existing !!" });
+    }
+    if (admin.password !== password) {
+      return res.status(401).send({ msg: "The password is not correct!!" });
+    }
     const token = await admin.generateAuthToken();
-    res.setHeader("Authorization", `Bearer ${token}`);
-    res.status(200).send("Signed in Successfull");
+    // res.setHeader("Authorization", `Bearer ${token}`);
+    res
+      .status(200)
+      .send({ msg: "Signed in Successfull", token: `Bearer ${token}` });
   } catch (e) {
     console.log(e);
-    res.send(e);
+    res.status(500).send({ msg: e });
   }
 });
 
@@ -28,10 +32,10 @@ router.post("/admin/signout", adminAuth, async (req, res) => {
   try {
     req.admin.token = "";
     await req.admin.save();
-    res.status(200).send("signed out successfully");
+    res.status(200).send({ msg: "signed out successfully" });
   } catch (e) {
     console.log(e);
-    res.send(e);
+    res.status(500).send({ msg: e });
   }
 });
 
