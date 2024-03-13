@@ -39,4 +39,15 @@ router.post("/admin/signout", adminAuth, async (req, res) => {
   }
 });
 
+// review feedbacks
+router.get("/admin/feedbacks", adminAuth, async (req, res) => {
+  try {
+    const feedbacks = req.admin.feedbacks;
+    res.status(200).send({ feedbackArray: feedbacks });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ msg: e });
+  }
+});
+
 export default router;
