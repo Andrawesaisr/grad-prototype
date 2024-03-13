@@ -1,5 +1,6 @@
 import express from "express";
 import User from "../models/User.js";
+import Admin from "../models/Admin.js";
 import Auth from "../middleware/auth.js";
 const router = express.Router();
 
@@ -71,6 +72,28 @@ router.post("/user/signout", Auth, async (req, res) => {
     req.user.token = "";
     await req.user.save();
     res.status(200).send({ msg: "signed out successfully" });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ msg: e });
+  }
+});
+
+// send feedback
+router.post("/user/feedback", Auth, async (req, res) => {
+  const feedback = req.body.feedback;
+  if (!feedback) {
+    return res.status(401).send({ msg: "Please fill the feedback field" });
+  }
+
+  try {
+    const email = req.user.email;
+    const receivedFeedback = { email, feedback };
+
+    const admin = await Admin.findOne({ email: "admin@gmail.com" });
+    admin.feedbacks.push(receivedFeedback);
+
+    await admin.save();
+    res.status(200).send({ msg: "Feedback sent successfully" });
   } catch (e) {
     console.log(e);
     res.status(500).send({ msg: e });

@@ -19,6 +19,12 @@ const adminSchema = new Schema({
     type: String,
     required: true,
   },
+  feedbacks: [
+    {
+      email: String,
+      feedback: String,
+    },
+  ],
   token: {
     type: String,
   },
