@@ -86,8 +86,8 @@ router.post("/user/feedback", Auth, async (req, res) => {
   }
 
   try {
-    const email = req.user.email;
-    const receivedFeedback = { email, feedback };
+    const username = req.user.username;
+    const receivedFeedback = { username, feedback };
 
     const admin = await Admin.findOne({ email: "admin@gmail.com" });
     admin.feedbacks.push(receivedFeedback);

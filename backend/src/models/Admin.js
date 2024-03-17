@@ -21,7 +21,7 @@ const adminSchema = new Schema({
   },
   feedbacks: [
     {
-      email: String,
+      username: String,
       feedback: String,
     },
   ],
