@@ -1,6 +1,7 @@
 import express from "express";
 import Admin from "../models/Admin.js";
 import adminAuth from "../middleware/adminAuth.js";
+import validator from "validator";
 const router = express.Router();
 
 // signin
@@ -9,6 +10,9 @@ router.post("/admin/signin", async (req, res) => {
   if (!email || !password)
     return res.status(401).send({ msg: "Please fill all the fields" });
   try {
+    if (!validator.isEmail(email)) {
+      res.status(400).send({ msg: "Please enter a valid email format!!" });
+    }
     const admin = await Admin.findOne({ email });
     if (!admin) {
       return res.status(401).send({ msg: "This email is not existing !!" });

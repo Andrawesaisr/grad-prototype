@@ -2,6 +2,7 @@ import express from "express";
 import User from "../models/User.js";
 import Admin from "../models/Admin.js";
 import Auth from "../middleware/auth.js";
+import validator from "validator";
 const router = express.Router();
 
 // sign up
@@ -13,6 +14,9 @@ router.post("/user/signup", async (req, res) => {
     });
 
   try {
+    if (!validator.isEmail(email)) {
+      res.status(400).send({ msg: "Please enter a valid email format!!" });
+    }
     const checkEmail = await User.findOne({ email });
     if (checkEmail) {
       return res.status(401).send({ msg: "This email is already exist!!" });
@@ -47,7 +51,11 @@ router.post("/user/signin", async (req, res) => {
   console.log("email", email, "password", password);
   if (!email || !password)
     return res.status(401).send({ msg: "Please fill all the fields" });
+
   try {
+    if (!validator.isEmail(email)) {
+      res.status(400).send({ msg: "Please enter a valid email format!!" });
+    }
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).send({ msg: "This email is not existing !!" });
