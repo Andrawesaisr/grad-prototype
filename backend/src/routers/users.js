@@ -9,7 +9,7 @@ const router = express.Router();
 router.post("/user/signup", async (req, res) => {
   const { email, username, password } = req.body;
   if (!email || !username || !password)
-    return res.status(401).send({
+    return res.status(404).send({
       msg: "Please fill all the fields",
     });
 
@@ -19,11 +19,11 @@ router.post("/user/signup", async (req, res) => {
     }
     const checkEmail = await User.findOne({ email });
     if (checkEmail) {
-      return res.status(401).send({ msg: "This email is already exist!!" });
+      return res.status(400).send({ msg: "This email is already exist!!" });
     }
     const checkUsername = await User.findOne({ username });
     if (checkUsername) {
-      return res.status(401).send({ msg: "This username is already exist!!" });
+      return res.status(400).send({ msg: "This username is already exist!!" });
     }
     if (password.length < 7) {
       return res
@@ -50,7 +50,7 @@ router.post("/user/signin", async (req, res) => {
   const { email, password } = req.body;
   console.log("email", email, "password", password);
   if (!email || !password)
-    return res.status(401).send({ msg: "Please fill all the fields" });
+    return res.status(404).send({ msg: "Please fill all the fields" });
 
   try {
     if (!validator.isEmail(email)) {
@@ -58,10 +58,10 @@ router.post("/user/signin", async (req, res) => {
     }
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).send({ msg: "This email is not existing !!" });
+      return res.status(400).send({ msg: "This email is not existing !!" });
     }
     if (user.password !== password) {
-      return res.status(401).send({ msg: "The password is not correct!!" });
+      return res.status(400).send({ msg: "The password is not correct!!" });
     }
     const token = await user.generateAuthToken();
     // res.setHeader("Authorization", `Bearer ${token}`);
@@ -90,7 +90,7 @@ router.post("/user/signout", Auth, async (req, res) => {
 router.post("/user/feedback", Auth, async (req, res) => {
   const feedback = req.body.feedback;
   if (!feedback) {
-    return res.status(401).send({ msg: "Please fill the feedback field" });
+    return res.status(404).send({ msg: "Please fill the feedback field" });
   }
 
   try {

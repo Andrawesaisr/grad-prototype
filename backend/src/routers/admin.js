@@ -8,17 +8,17 @@ const router = express.Router();
 router.post("/admin/signin", async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
-    return res.status(401).send({ msg: "Please fill all the fields" });
+    return res.status(404).send({ msg: "Please fill all the fields" });
   try {
     if (!validator.isEmail(email)) {
       res.status(400).send({ msg: "Please enter a valid email format!!" });
     }
     const admin = await Admin.findOne({ email });
     if (!admin) {
-      return res.status(401).send({ msg: "This email is not existing !!" });
+      return res.status(400).send({ msg: "This email is not existing !!" });
     }
     if (admin.password !== password) {
-      return res.status(401).send({ msg: "The password is not correct!!" });
+      return res.status(400).send({ msg: "The password is not correct!!" });
     }
     const token = await admin.generateAuthToken();
     // res.setHeader("Authorization", `Bearer ${token}`);
