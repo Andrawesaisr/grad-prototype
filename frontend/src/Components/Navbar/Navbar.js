@@ -7,7 +7,7 @@ const Navbar = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:4000/user/signout", {
+      const response = await fetch("http://ec2-3-91-241-28.compute-1.amazonaws.com:4000/user/signout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -18,10 +18,10 @@ const Navbar = () => {
       if (response.ok) {
         console.log(responseData.msg);
       } else {
-        console.error("Error signing up:", responseData.msg);
+        console.error("Error signing out:", responseData.msg);
       }
     } catch (error) {
-      console.error("Error signing up:", error.message);
+      console.error("Error signing out:", error.message);
     }
   };
   return (

@@ -8,7 +8,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:4000/user/signup", {
+      const response = await fetch("http://ec2-3-91-241-28.compute-1.amazonaws.com:4000/user/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
