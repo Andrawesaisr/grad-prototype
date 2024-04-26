@@ -27,7 +27,7 @@ router.post("/admin/signin", async (req, res) => {
       .send({ msg: "Signed in Successfull", token: `Bearer ${token}` });
   } catch (e) {
     console.log(e);
-    res.status(500).send({ msg: e });
+    res.status(500).send({ msg: `error just occured : ${e}` });
   }
 });
 
@@ -39,7 +39,7 @@ router.post("/admin/signout", adminAuth, async (req, res) => {
     res.status(200).send({ msg: "signed out successfully" });
   } catch (e) {
     console.log(e);
-    res.status(500).send({ msg: e });
+    res.status(500).send({ msg: `error just occured : ${e}` });
   }
 });
 
@@ -50,7 +50,7 @@ router.get("/admin/feedbacks", adminAuth, async (req, res) => {
     res.status(200).send({ feedbackArray: feedbacks });
   } catch (e) {
     console.log(e);
-    res.status(500).send({ msg: e });
+    res.status(500).send({ msg: `error just occured : ${e}` });
   }
 });
 

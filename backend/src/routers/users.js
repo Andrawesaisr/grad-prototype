@@ -41,14 +41,13 @@ router.post("/user/signup", async (req, res) => {
       .send({ msg: "Signed up Successfully", token: `Bearer ${token}` });
   } catch (e) {
     console.log(e);
-    res.status(500).send(e);
+    res.status(500).send({ msg: `error just occured : ${e}` });
   }
 });
 
 // signin
 router.post("/user/signin", async (req, res) => {
   const { email, password } = req.body;
-  console.log("email", email, "password", password);
   if (!email || !password)
     return res.status(404).send({ msg: "Please fill all the fields" });
 
@@ -70,7 +69,7 @@ router.post("/user/signin", async (req, res) => {
       .send({ msg: "Signed in Successfully", token: `Bearer ${token}` });
   } catch (e) {
     console.log(e);
-    res.send({ msg: e });
+    res.status(500).send({ msg: `error just occured : ${e}` });
   }
 });
 
@@ -82,7 +81,7 @@ router.post("/user/signout", Auth, async (req, res) => {
     res.status(200).send({ msg: "signed out successfully" });
   } catch (e) {
     console.log(e);
-    res.status(500).send({ msg: e });
+    res.status(500).send({ msg: `error just occured : ${e}` });
   }
 });
 
@@ -104,7 +103,7 @@ router.post("/user/feedback", Auth, async (req, res) => {
     res.status(200).send({ msg: "Feedback sent successfully" });
   } catch (e) {
     console.log(e);
-    res.status(500).send({ msg: e });
+    res.status(500).send({ msg: `error just occured : ${e}` });
   }
 });
 
