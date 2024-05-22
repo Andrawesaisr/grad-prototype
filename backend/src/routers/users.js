@@ -64,9 +64,11 @@ router.post("/user/signin", async (req, res) => {
     }
     const token = await user.generateAuthToken();
     // res.setHeader("Authorization", `Bearer ${token}`);
-    res
-      .status(200)
-      .send({ msg: "Signed in Successfully", token: `Bearer ${token}` });
+    res.status(200).send({
+      msg: "Signed in Successfully",
+      token: `Bearer ${token}`,
+      userData: { username: user.username, email: user.email },
+    });
   } catch (e) {
     console.log(e);
     res.status(500).send({ msg: `error just occured : ${e}` });
