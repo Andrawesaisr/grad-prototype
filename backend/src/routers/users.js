@@ -160,7 +160,7 @@ const originalStoriesFemale = [
       "{name}, whose favorite color was {color}, had a passion for {sport}. Her hobby was {hobby}. {name} started a science club with her friends, where they explored the mysteries of the cosmos and even built their own miniature rockets.",
   },
 ];
-router.post("/generate-stories", async (req, res) => {
+router.post("/generate-stories-english", async (req, res) => {
   const audioDir = path.join(__dirname, "audio");
 
   const { gender, inputs } = req.body;
