@@ -1,4 +1,3 @@
-import { Readable } from "stream";
 import express from "express";
 import User from "../models/User.js";
 import Admin from "../models/Admin.js";
@@ -213,7 +212,6 @@ router.post("/generate-stories", async (req, res) => {
         const title = story.title;
         const description = story.description;
         const filename = path.join(audioDir, story.filename);
-        console.log("filename: ", filename);
         const storyText = `${title}. ${description}`;
         const gtts = new Gtts(storyText, "en");
         return new Promise((resolve, reject) => {
