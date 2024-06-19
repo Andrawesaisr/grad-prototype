@@ -239,7 +239,7 @@ router.post("/generate-stories", async (req, res) => {
     });
 
     res.json({
-      msg: "Stories generated and saved to CSV, and audio files created.",
+      msg: "Stories generated with titles, descriptions, and audio files",
       stories,
     });
   } catch (e) {
