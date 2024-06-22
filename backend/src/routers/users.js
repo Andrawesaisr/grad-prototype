@@ -300,7 +300,7 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
     res.status(200).json({ msg: "The letter is correct", passed: true });
   } catch (error) {
     console.error("Error:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal Server Error", error });
   }
 });
 
