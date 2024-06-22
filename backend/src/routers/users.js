@@ -271,11 +271,10 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
     const { image, letter } = req.body;
 
     // Decode the base64 image
-    const base64String = atob(image.split(",")[1]);
 
     const response = await axios.post(
       "https://7091-41-47-36-202.ngrok-free.app/checkEnglishNumbers",
-      base64String,
+      image,
       {
         headers: {
           "Content-Type": "application/octet-stream",
