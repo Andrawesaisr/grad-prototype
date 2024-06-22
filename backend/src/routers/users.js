@@ -282,10 +282,12 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
     const { predictedNumber } = response;
 
     if (predictedNumber !== letter) {
-      return res.status(200).json({ msg: "The letter is not correct" });
+      return res
+        .status(200)
+        .json({ msg: "The letter is not correct", passed: false });
     }
 
-    res.status(200).json({ msg: "The letter is correct" });
+    res.status(200).json({ msg: "The letter is correct", passed: true });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Internal Server Error" });
