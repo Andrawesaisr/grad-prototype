@@ -277,7 +277,7 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
       image,
       {
         headers: {
-          "Content-Type": "application/octet-stream",
+          "Content-Type": "application/json",
         },
       }
     );
