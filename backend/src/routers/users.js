@@ -265,4 +265,31 @@ router.post("/generate-stories-arabic", Auth, async (req, res) => {
   }
 });
 
+router.post("/checkEnglishNumbers", Auth, async (req, res) => {
+  try {
+    const { image, letter } = req.body;
+
+    const response = await axios.post(
+      "https://7091-41-47-36-202.ngrok-free.app/checkEnglishNumbers",
+      image,
+      {
+        headers: {
+          "Content-Type": "application/octet-stream",
+        },
+      }
+    );
+
+    const { predictedNumber } = response;
+
+    if (predictedNumber !== letter) {
+      return res.status(200).json({ msg: "The letter is not correct" });
+    }
+
+    res.status(200).json({ msg: "The letter is correct" });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 export default router;
