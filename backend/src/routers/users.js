@@ -4,6 +4,7 @@ import Admin from "../models/Admin.js";
 import Auth from "../middleware/auth.js";
 import validator from "validator";
 import Gtts from "gtts";
+import axios from "axios";
 import {
   originalStoriesMale,
   originalStoriesFemale,
@@ -264,13 +265,6 @@ router.post("/generate-stories-arabic", Auth, async (req, res) => {
       .json({ error: "An error occurred while generating stories." });
   }
 });
-// const decodeBase64Image = (dataString) => {
-//   const matches = dataString.match(/^data:image\/([A-Za-z-+\/]+);base64,(.+)$/);
-//   if (!matches || matches.length !== 3) {
-//     throw new Error("Invalid base64 string");
-//   }
-//   return Buffer.from(matches[2], "base64");
-// };
 
 router.post("/checkEnglishNumbers", Auth, async (req, res) => {
   try {
