@@ -264,24 +264,24 @@ router.post("/generate-stories-arabic", Auth, async (req, res) => {
       .json({ error: "An error occurred while generating stories." });
   }
 });
-const decodeBase64Image = (dataString) => {
-  const matches = dataString.match(/^data:image\/([A-Za-z-+\/]+);base64,(.+)$/);
-  if (!matches || matches.length !== 3) {
-    throw new Error("Invalid base64 string");
-  }
-  return Buffer.from(matches[2], "base64");
-};
+// const decodeBase64Image = (dataString) => {
+//   const matches = dataString.match(/^data:image\/([A-Za-z-+\/]+);base64,(.+)$/);
+//   if (!matches || matches.length !== 3) {
+//     throw new Error("Invalid base64 string");
+//   }
+//   return Buffer.from(matches[2], "base64");
+// };
 
 router.post("/checkEnglishNumbers", Auth, async (req, res) => {
   try {
     const { image, letter } = req.body;
 
     // Decode the base64 image
-    const decodedImage = decodeBase64Image(image);
+    const base64String = atob(image.split(",")[1]);
 
     const response = await axios.post(
       "https://7091-41-47-36-202.ngrok-free.app/checkEnglishNumbers",
-      decodedImage,
+      base64String,
       {
         headers: {
           "Content-Type": "application/octet-stream",
