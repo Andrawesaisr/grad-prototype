@@ -364,4 +364,34 @@ router.post("/checkEnglishLetters", Auth, async (req, res) => {
   }
 });
 
+router.post("/checkArabicLetters", Auth, async (req, res) => {
+  try {
+    const { image, letter } = req.body;
+
+    const response = await axios.post(
+      "https://22b0-41-47-36-202.ngrok-free.app/checkArabicLetters",
+      image,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const { predicted_letter } = response.data;
+
+    if (predicted_letter !== letter) {
+      return res
+        .status(200)
+        .json({ msg: "The letter is not correct", passed: false });
+    }
+
+    res.status(200).json({ msg: "The letter is correct", passed: true });
+  } catch (error) {
+    console.error("Error:", error);
+
+    res.status(500).json({ error: "Internal Server Error", error });
+  }
+});
+
 export default router;
