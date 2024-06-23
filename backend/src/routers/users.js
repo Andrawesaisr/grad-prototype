@@ -14,6 +14,8 @@ import {
 import fs from "fs";
 import path from "path";
 import multer from "multer";
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     // Save the image in the same folder as the JavaScript file
