@@ -280,9 +280,9 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
       }
     );
 
-    const { predicted_number } = response.data;
+    const { predictedNumber } = response.data;
 
-    if (predicted_number !== letter) {
+    if (predictedNumber !== letter) {
       return res.status(200).json({
         msg: "The letter is not correct",
         passed: false,
@@ -292,7 +292,7 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
 
     res
       .status(200)
-      .json({ msg: "The letter is correct", passed: true, predicted_number });
+      .json({ msg: "The letter is correct", passed: true, predictedNumber });
   } catch (error) {
     console.error("Error:", error);
 
@@ -314,9 +314,9 @@ router.post("/checkArabicNumbers", Auth, async (req, res) => {
       }
     );
 
-    const { predicted_number } = response.data;
+    const { predictedNumber } = response.data;
 
-    if (predicted_number !== letter) {
+    if (predictedNumber !== letter) {
       return res.status(200).json({
         msg: "The letter is not correct",
         passed: false,
@@ -326,7 +326,7 @@ router.post("/checkArabicNumbers", Auth, async (req, res) => {
 
     res
       .status(200)
-      .json({ msg: "The letter is correct", passed: true, predicted_number });
+      .json({ msg: "The letter is correct", passed: true, predictedNumber });
   } catch (error) {
     console.error("Error:", error);
 
@@ -348,9 +348,9 @@ router.post("/checkEnglishLetters", Auth, async (req, res) => {
       }
     );
 
-    const { predicted_letter } = response.data;
+    const { predictedLetter } = response.data;
 
-    if (predicted_letter !== letter) {
+    if (predictedLetter !== letter) {
       return res
         .status(200)
         .json({ msg: "The letter is not correct", passed: false });
@@ -378,9 +378,9 @@ router.post("/checkArabicLetters", Auth, async (req, res) => {
       }
     );
 
-    const { predicted_letter } = response.data;
+    const { predictedLetter } = response.data;
 
-    if (predicted_letter !== letter) {
+    if (predictedLetter !== letter) {
       return res
         .status(200)
         .json({ msg: "The letter is not correct", passed: false });
