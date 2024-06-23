@@ -350,7 +350,7 @@ router.post("/checkEnglishLetters", Auth, async (req, res) => {
     );
 
     const { predictedLetter } = response.data;
-
+    console.log("predicted - letter : ", predictedLetter, letter);
     if (predictedLetter !== letter) {
       return res
         .status(200)
@@ -380,7 +380,7 @@ router.post("/checkArabicLetters", Auth, async (req, res) => {
     );
 
     const { predictedLetter } = response.data;
-
+    console.log("predicted - letter : ", predictedLetter, letter);
     if (predictedLetter !== letter) {
       return res
         .status(200)
