@@ -271,7 +271,7 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
     const { image, letter } = req.body;
 
     const response = await axios.post(
-      "https:https://22b0-41-47-36-202.ngrok-free.app/checkEnglishNumbers",
+      "https://22b0-41-47-36-202.ngrok-free.app/checkEnglishNumbers",
       image,
       {
         headers: {
@@ -301,7 +301,7 @@ router.post("/checkArabicNumbers", Auth, async (req, res) => {
     const { image, letter } = req.body;
 
     const response = await axios.post(
-      "https:https://22b0-41-47-36-202.ngrok-free.app/checkArabicNumbers",
+      "https://22b0-41-47-36-202.ngrok-free.app/checkArabicNumbers",
       image,
       {
         headers: {
@@ -331,7 +331,7 @@ router.post("/checkEnglishLetters", Auth, async (req, res) => {
     const { image, letter } = req.body;
 
     const response = await axios.post(
-      "https:https://22b0-41-47-36-202.ngrok-free.app/checkEnglishLetters",
+      "https://22b0-41-47-36-202.ngrok-free.app/checkEnglishLetters",
       image,
       {
         headers: {
