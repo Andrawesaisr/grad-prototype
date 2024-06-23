@@ -340,7 +340,7 @@ router.post("/checkEnglishLetters", Auth, async (req, res) => {
     const { image, letter } = req.body;
 
     const response = await axios.post(
-      "https://22b0-41-47-36-202.ngrok-free.app/checkEnglishLetters",
+      "https://8848-41-47-36-202.ngrok-free.app/checkEnglishLetters",
       image,
       {
         headers: {
@@ -370,7 +370,7 @@ router.post("/checkArabicLetters", Auth, async (req, res) => {
     const { image, letter } = req.body;
 
     const response = await axios.post(
-      "https://22b0-41-47-36-202.ngrok-free.app/checkArabicLetters",
+      "https://8848-41-47-36-202.ngrok-free.app/checkArabicLetters",
       image,
       {
         headers: {
