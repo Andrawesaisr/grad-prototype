@@ -11,21 +11,6 @@ import {
   original_stories_male,
   original_stories_female,
 } from "../helpers/stories_array.js";
-import fs from "fs";
-import path from "path";
-import multer from "multer";
-
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Save the image in the same folder as the JavaScript file
-    cb(null, path.join(__dirname, ""));
-  },
-  filename: (req, file, cb) => {
-    cb(null, "uploaded_image.png"); // specify the filename
-  },
-});
-const upload = multer({ storage });
 
 const router = express.Router();
 
@@ -311,47 +296,35 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
   }
 });
 
-router.post(
-  "/checkArabicNumbers",
-  Auth,
-  upload.single("image"),
-  async (req, res) => {
-    try {
-      const { letter } = req.body;
-      const image = req.file;
-      console.log("image", image);
-      if (!image || !letter) {
-        return res.status(400).json({ error: "Image and letter are required" });
+router.post("/checkArabicNumbers", Auth, async (req, res) => {
+  try {
+    const { image, letter } = req.body;
+
+    const response = await axios.post(
+      "https://22b0-41-47-36-202.ngrok-free.app/checkArabicNumbers",
+      image,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-      const imagePath = path.join(__dirname, "uploads", image.filename);
-      fs.renameSync(image.path, imagePath);
+    );
 
-      const response = await axios.post(
-        "https://22b0-41-47-36-202.ngrok-free.app/checkArabicNumbers",
-        { image: image.path },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    const { predicted_number } = response.data;
 
-      const { predicted_number } = response.data;
-
-      if (predicted_number !== letter) {
-        return res
-          .status(200)
-          .json({ msg: "The letter is not correct", passed: false });
-      }
-
-      res.status(200).json({ msg: "The letter is correct", passed: true });
-    } catch (error) {
-      console.error("Error:", error);
-
-      res.status(500).json({ error: "Internal Server Error", error });
+    if (predicted_number !== letter) {
+      return res
+        .status(200)
+        .json({ msg: "The letter is not correct", passed: false });
     }
+
+    res.status(200).json({ msg: "The letter is correct", passed: true });
+  } catch (error) {
+    console.error("Error:", error);
+
+    res.status(500).json({ error: "Internal Server Error", error });
   }
-);
+});
 
 router.post("/checkEnglishLetters", Auth, async (req, res) => {
   try {
