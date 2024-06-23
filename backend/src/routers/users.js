@@ -270,10 +270,8 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
   try {
     const { image, letter } = req.body;
 
-    // Decode the base64 image
-
     const response = await axios.post(
-      "https://7091-41-47-36-202.ngrok-free.app/checkEnglishNumbers",
+      "https:https://22b0-41-47-36-202.ngrok-free.app/checkEnglishNumbers",
       image,
       {
         headers: {
@@ -282,9 +280,9 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
       }
     );
 
-    const { predictedNumber } = response.data;
+    const { predicted_number } = response.data;
 
-    if (predictedNumber !== letter) {
+    if (predicted_number !== letter) {
       return res
         .status(200)
         .json({ msg: "The letter is not correct", passed: false });
@@ -293,6 +291,67 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
     res.status(200).json({ msg: "The letter is correct", passed: true });
   } catch (error) {
     console.error("Error:", error);
+
+    res.status(500).json({ error: "Internal Server Error", error });
+  }
+});
+
+router.post("/checkArabicNumbers", Auth, async (req, res) => {
+  try {
+    const { image, letter } = req.body;
+
+    const response = await axios.post(
+      "https:https://22b0-41-47-36-202.ngrok-free.app/checkArabicNumbers",
+      image,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const { predicted_number } = response.data;
+
+    if (predicted_number !== letter) {
+      return res
+        .status(200)
+        .json({ msg: "The letter is not correct", passed: false });
+    }
+
+    res.status(200).json({ msg: "The letter is correct", passed: true });
+  } catch (error) {
+    console.error("Error:", error);
+
+    res.status(500).json({ error: "Internal Server Error", error });
+  }
+});
+
+router.post("/checkEnglishLetters", Auth, async (req, res) => {
+  try {
+    const { image, letter } = req.body;
+
+    const response = await axios.post(
+      "https:https://22b0-41-47-36-202.ngrok-free.app/checkEnglishLetters",
+      image,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const { predicted_letter } = response.data;
+
+    if (predicted_letter !== letter) {
+      return res
+        .status(200)
+        .json({ msg: "The letter is not correct", passed: false });
+    }
+
+    res.status(200).json({ msg: "The letter is correct", passed: true });
+  } catch (error) {
+    console.error("Error:", error);
+
     res.status(500).json({ error: "Internal Server Error", error });
   }
 });
