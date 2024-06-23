@@ -19,7 +19,7 @@ const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     // Save the image in the same folder as the JavaScript file
-    cb(null, path.join(__dirname, "/uploads"));
+    cb(null, path.join(__dirname, ""));
   },
   filename: (req, file, cb) => {
     cb(null, "uploaded_image.png"); // specify the filename
