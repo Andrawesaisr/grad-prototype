@@ -11,9 +11,19 @@ import {
   original_stories_male,
   original_stories_female,
 } from "../helpers/stories_array.js";
+import fs from "fs";
+import path from "path";
 import multer from "multer";
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // Save the image in the same folder as the JavaScript file
+    cb(null, path.join(__dirname, "/uploads"));
+  },
+  filename: (req, file, cb) => {
+    cb(null, "uploaded_image.png"); // specify the filename
+  },
+});
+const upload = multer({ storage });
 
 const router = express.Router();
 
@@ -311,10 +321,12 @@ router.post(
       if (!image || !letter) {
         return res.status(400).json({ error: "Image and letter are required" });
       }
+      const imagePath = path.join(__dirname, "uploads", image.filename);
+      fs.renameSync(image.path, imagePath);
 
       const response = await axios.post(
         "https://22b0-41-47-36-202.ngrok-free.app/checkArabicNumbers",
-        image,
+        { image: fs.readFileSync(imagePath) },
         {
           headers: {
             "Content-Type": "application/json",
