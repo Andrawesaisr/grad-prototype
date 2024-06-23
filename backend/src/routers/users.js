@@ -328,7 +328,7 @@ router.post(
 
       const response = await axios.post(
         "https://22b0-41-47-36-202.ngrok-free.app/checkArabicNumbers",
-        { image: fs.readFileSync(imagePath) },
+        { image: image.path },
         {
           headers: {
             "Content-Type": "application/json",
