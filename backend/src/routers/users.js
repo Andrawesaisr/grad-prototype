@@ -286,7 +286,7 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
       return res.status(200).json({
         msg: "The letter is not correct",
         passed: false,
-        predicted_number,
+        predictedNumber,
       });
     }
 
@@ -320,7 +320,7 @@ router.post("/checkArabicNumbers", Auth, async (req, res) => {
       return res.status(200).json({
         msg: "The letter is not correct",
         passed: false,
-        predicted_number,
+        predictedNumber,
       });
     }
 
