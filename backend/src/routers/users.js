@@ -11,6 +11,9 @@ import {
   original_stories_male,
   original_stories_female,
 } from "../helpers/stories_array.js";
+import multer from "multer";
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 const router = express.Router();
 
@@ -296,35 +299,45 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
   }
 });
 
-router.post("/checkArabicNumbers", Auth, async (req, res) => {
-  try {
-    const { image, letter } = req.body;
-
-    const response = await axios.post(
-      "https://22b0-41-47-36-202.ngrok-free.app/checkArabicNumbers",
-      image,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
+router.post(
+  "/checkArabicNumbers",
+  Auth,
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const { letter } = req.body;
+      const image = req.file;
+      console.log("image", image);
+      if (!image || !letter) {
+        return res.status(400).json({ error: "Image and letter are required" });
       }
-    );
 
-    const { predicted_number } = response.data;
+      const response = await axios.post(
+        "https://22b0-41-47-36-202.ngrok-free.app/checkArabicNumbers",
+        image,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    if (predicted_number !== letter) {
-      return res
-        .status(200)
-        .json({ msg: "The letter is not correct", passed: false });
+      const { predicted_number } = response.data;
+
+      if (predicted_number !== letter) {
+        return res
+          .status(200)
+          .json({ msg: "The letter is not correct", passed: false });
+      }
+
+      res.status(200).json({ msg: "The letter is correct", passed: true });
+    } catch (error) {
+      console.error("Error:", error);
+
+      res.status(500).json({ error: "Internal Server Error", error });
     }
-
-    res.status(200).json({ msg: "The letter is correct", passed: true });
-  } catch (error) {
-    console.error("Error:", error);
-
-    res.status(500).json({ error: "Internal Server Error", error });
   }
-});
+);
 
 router.post("/checkEnglishLetters", Auth, async (req, res) => {
   try {
