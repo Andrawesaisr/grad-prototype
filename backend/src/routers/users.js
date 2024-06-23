@@ -271,7 +271,7 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
     const { image, letter } = req.body;
 
     const response = await axios.post(
-      "https://22b0-41-47-36-202.ngrok-free.app/checkEnglishNumbers",
+      "https://8848-41-47-36-202.ngrok-free.app/checkEnglishNumbers",
       image,
       {
         headers: {
@@ -283,12 +283,16 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
     const { predicted_number } = response.data;
 
     if (predicted_number !== letter) {
-      return res
-        .status(200)
-        .json({ msg: "The letter is not correct", passed: false });
+      return res.status(200).json({
+        msg: "The letter is not correct",
+        passed: false,
+        predicted_number,
+      });
     }
 
-    res.status(200).json({ msg: "The letter is correct", passed: true });
+    res
+      .status(200)
+      .json({ msg: "The letter is correct", passed: true, predicted_number });
   } catch (error) {
     console.error("Error:", error);
 
@@ -301,7 +305,7 @@ router.post("/checkArabicNumbers", Auth, async (req, res) => {
     const { image, letter } = req.body;
 
     const response = await axios.post(
-      "https://22b0-41-47-36-202.ngrok-free.app/checkArabicNumbers",
+      "https://8848-41-47-36-202.ngrok-free.app/checkArabicNumbers",
       image,
       {
         headers: {
@@ -313,12 +317,16 @@ router.post("/checkArabicNumbers", Auth, async (req, res) => {
     const { predicted_number } = response.data;
 
     if (predicted_number !== letter) {
-      return res
-        .status(200)
-        .json({ msg: "The letter is not correct", passed: false });
+      return res.status(200).json({
+        msg: "The letter is not correct",
+        passed: false,
+        predicted_number,
+      });
     }
 
-    res.status(200).json({ msg: "The letter is correct", passed: true });
+    res
+      .status(200)
+      .json({ msg: "The letter is correct", passed: true, predicted_number });
   } catch (error) {
     console.error("Error:", error);
 
