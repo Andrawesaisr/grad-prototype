@@ -120,7 +120,7 @@ router.post("/user/feedback", Auth, async (req, res) => {
 
 router.post("/generate-stories-english", Auth, async (req, res) => {
   const { gender, inputs } = req.body;
-
+  console.log("gender : ", gender);
   try {
     let originalStories =
       gender === "M" ? originalStoriesMale : originalStoriesFemale;
@@ -194,7 +194,7 @@ router.post("/generate-stories-english", Auth, async (req, res) => {
 
 router.post("/generate-stories-arabic", Auth, async (req, res) => {
   const { gender, inputs } = req.body;
-
+  console.log("gender : ", gender);
   try {
     let originalStories =
       gender === "ولد" ? original_stories_male : original_stories_female;
