@@ -305,7 +305,7 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
 
     if (letter === 4) {
       return res
-        .status(404)
+        .status(200)
         .json({ msg: "The letter is not correct", passed: false });
     }
 
@@ -353,7 +353,7 @@ router.post("/checkArabicNumbers", Auth, async (req, res) => {
 
     if (letter === 3) {
       return res
-        .status(404)
+        .status(200)
         .json({ msg: "The letter is not correct", passed: false });
     }
 
@@ -397,7 +397,7 @@ router.post("/checkEnglishLetters", Auth, async (req, res) => {
 
     if (letter === "H") {
       return res
-        .status(404)
+        .status(200)
         .json({ msg: "The letter is not correct", passed: false });
     }
 
@@ -441,7 +441,7 @@ router.post("/checkArabicLetters", Auth, async (req, res) => {
 
     if (letter === "ل") {
       return res
-        .status(404)
+        .status(200)
         .json({ msg: "The letter is not correct", passed: false });
     }
 
