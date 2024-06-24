@@ -267,186 +267,130 @@ router.post("/generate-stories-arabic", Auth, async (req, res) => {
 });
 
 router.post("/checkEnglishNumbers", Auth, async (req, res) => {
-  // try {
-  //   const { image, letter } = req.body;
-
-  //   const response = await axios.post(
-  //     "https://8848-41-47-36-202.ngrok-free.app/checkEnglishNumbers",
-  //     image,
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     }
-  //   );
-
-  //   const { predictedNumber } = response.data;
-  //   console.log("predicted - letter : ", predictedNumber, letter);
-
-  //   if (predictedNumber !== letter) {
-  //     return res.status(200).json({
-  //       msg: "The letter is not correct",
-  //       passed: false,
-  //       predictedNumber,
-  //     });
-  //   }
-
-  //   res
-  //     .status(200)
-  //     .json({ msg: "The letter is correct", passed: true, predictedNumber });
-  // } catch (error) {
-  //   console.error("Error:", error);
-
-  //   res.status(500).json({ error: "Internal Server Error", error });
-  // }
-
   try {
     const { image, letter } = req.body;
 
-    if (letter === 4) {
-      return res
-        .status(200)
-        .json({ msg: "The letter is not correct", passed: false });
+    const response = await axios.post(
+      "https://8848-41-47-36-202.ngrok-free.app/checkEnglishNumbers",
+      image,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const { predictedNumber } = response.data;
+    console.log("predicted - letter : ", predictedNumber, letter);
+
+    if (predictedNumber !== letter) {
+      return res.status(200).json({
+        msg: "The letter is not correct",
+        passed: false,
+        predictedNumber,
+      });
     }
 
-    res.status(200).json({ msg: "The letter is correct", passed: true });
-  } catch (e) {
+    res
+      .status(200)
+      .json({ msg: "The letter is correct", passed: true, predictedNumber });
+  } catch (error) {
+    console.error("Error:", error);
+
     res.status(500).json({ error: "Internal Server Error", error });
   }
 });
 
 router.post("/checkArabicNumbers", Auth, async (req, res) => {
-  // try {
-  //   const { image, letter } = req.body;
-
-  //   const response = await axios.post(
-  //     "https://8848-41-47-36-202.ngrok-free.app/checkArabicNumbers",
-  //     image,
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     }
-  //   );
-
-  //   const { predictedNumber } = response.data;
-  //   console.log("predicted - letter : ", predictedNumber, letter);
-  //   if (predictedNumber !== letter) {
-  //     return res.status(200).json({
-  //       msg: "The letter is not correct",
-  //       passed: false,
-  //       predictedNumber,
-  //     });
-  //   }
-
-  //   res
-  //     .status(200)
-  //     .json({ msg: "The letter is correct", passed: true, predictedNumber });
-  // } catch (error) {
-  //   console.error("Error:", error);
-
-  //   res.status(500).json({ error: "Internal Server Error", error });
-  // }
-
   try {
     const { image, letter } = req.body;
 
-    if (letter === 3) {
-      return res
-        .status(200)
-        .json({ msg: "The letter is not correct", passed: false });
+    const response = await axios.post(
+      "https://8848-41-47-36-202.ngrok-free.app/checkArabicNumbers",
+      image,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const { predictedNumber } = response.data;
+    console.log("predicted - letter : ", predictedNumber, letter);
+    if (predictedNumber !== letter) {
+      return res.status(200).json({
+        msg: "The letter is not correct",
+        passed: false,
+        predictedNumber,
+      });
     }
 
-    res.status(200).json({ msg: "The letter is correct", passed: true });
-  } catch (e) {
+    res
+      .status(200)
+      .json({ msg: "The letter is correct", passed: true, predictedNumber });
+  } catch (error) {
+    console.error("Error:", error);
+
     res.status(500).json({ error: "Internal Server Error", error });
   }
 });
 
 router.post("/checkEnglishLetters", Auth, async (req, res) => {
-  // try {
-  //   const { image, letter } = req.body;
-
-  //   const response = await axios.post(
-  //     "https://8848-41-47-36-202.ngrok-free.app/checkEnglishLetters",
-  //     image,
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     }
-  //   );
-
-  //   const { predictedLetter } = response.data;
-  //   console.log("predicted - letter : ", predictedLetter, letter);
-  //   if (predictedLetter !== letter) {
-  //     return res
-  //       .status(200)
-  //       .json({ msg: "The letter is not correct", passed: false });
-  //   }
-
-  //   res.status(200).json({ msg: "The letter is correct", passed: true });
-  // } catch (error) {
-  //   console.error("Error:", error);
-
-  //   res.status(500).json({ error: "Internal Server Error", error });
-  // }
-
   try {
     const { image, letter } = req.body;
 
-    if (letter === "H") {
+    const response = await axios.post(
+      "https://8848-41-47-36-202.ngrok-free.app/checkEnglishLetters",
+      image,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const { predictedLetter } = response.data;
+    console.log("predicted - letter : ", predictedLetter, letter);
+    if (predictedLetter !== letter) {
       return res
         .status(200)
         .json({ msg: "The letter is not correct", passed: false });
     }
 
     res.status(200).json({ msg: "The letter is correct", passed: true });
-  } catch (e) {
+  } catch (error) {
+    console.error("Error:", error);
+
     res.status(500).json({ error: "Internal Server Error", error });
   }
 });
 
 router.post("/checkArabicLetters", Auth, async (req, res) => {
-  // try {
-  //   const { image, letter } = req.body;
-
-  //   const response = await axios.post(
-  //     "https://8848-41-47-36-202.ngrok-free.app/checkArabicLetters",
-  //     image,
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     }
-  //   );
-
-  //   const { predictedLetter } = response.data;
-  //   console.log("predicted - letter : ", predictedLetter, letter);
-  //   if (predictedLetter !== letter) {
-  //     return res
-  //       .status(200)
-  //       .json({ msg: "The letter is not correct", passed: false });
-  //   }
-
-  //   res.status(200).json({ msg: "The letter is correct", passed: true });
-  // } catch (error) {
-  //   console.error("Error:", error);
-
-  //   res.status(500).json({ error: "Internal Server Error", error });
-  // }
-
   try {
     const { image, letter } = req.body;
 
-    if (letter === "ل") {
+    const response = await axios.post(
+      "https://8848-41-47-36-202.ngrok-free.app/checkArabicLetters",
+      image,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const { predictedLetter } = response.data;
+    console.log("predicted - letter : ", predictedLetter, letter);
+    if (predictedLetter !== letter) {
       return res
         .status(200)
         .json({ msg: "The letter is not correct", passed: false });
     }
 
     res.status(200).json({ msg: "The letter is correct", passed: true });
-  } catch (e) {
+  } catch (error) {
+    console.error("Error:", error);
+
     res.status(500).json({ error: "Internal Server Error", error });
   }
 });
