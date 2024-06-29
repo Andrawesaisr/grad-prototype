@@ -269,7 +269,7 @@ router.post("/generate-stories-arabic", Auth, async (req, res) => {
 router.post("/checkEnglishNumbers", Auth, async (req, res) => {
   try {
     const { image, letter } = req.body;
-
+    console.log("number : ", letter);
     // const response = await axios.post(
     //   "https://8848-41-47-36-202.ngrok-free.app/checkEnglishNumbers",
     //   image,
@@ -302,13 +302,11 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
         predictedNumber: letter,
       });
     }
-    res
-      .status(200)
-      .json({
-        msg: "The letter is correct",
-        passed: true,
-        predictedNumber: letter,
-      });
+    res.status(200).json({
+      msg: "The letter is correct",
+      passed: true,
+      predictedNumber: letter,
+    });
   } catch (error) {
     console.error("Error:", error);
 
@@ -319,7 +317,7 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
 router.post("/checkArabicNumbers", Auth, async (req, res) => {
   try {
     const { image, letter } = req.body;
-
+    console.log("number : ", letter);
     // const response = await axios.post(
     //   "https://8848-41-47-36-202.ngrok-free.app/checkArabicNumbers",
     //   image,
@@ -350,13 +348,11 @@ router.post("/checkArabicNumbers", Auth, async (req, res) => {
         predictedNumber: letter,
       });
     }
-    res
-      .status(200)
-      .json({
-        msg: "The letter is correct",
-        passed: true,
-        predictedNumber: letter,
-      });
+    res.status(200).json({
+      msg: "The letter is correct",
+      passed: true,
+      predictedNumber: letter,
+    });
   } catch (error) {
     console.error("Error:", error);
 
