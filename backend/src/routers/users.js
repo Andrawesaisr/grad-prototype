@@ -295,7 +295,7 @@ router.post("/checkEnglishNumbers", Auth, async (req, res) => {
     //   .status(200)
     //   .json({ msg: "The letter is correct", passed: true, predictedNumber });
 
-    if (letter === 2) {
+    if (letter == 2) {
       return res.status(200).json({
         msg: "The letter is not correct",
         passed: false,
@@ -341,7 +341,7 @@ router.post("/checkArabicNumbers", Auth, async (req, res) => {
     // res
     //   .status(200)
     //   .json({ msg: "The letter is correct", passed: true, predictedNumber });
-    if (letter === 2) {
+    if (letter == 2) {
       return res.status(200).json({
         msg: "The letter is not correct",
         passed: false,
